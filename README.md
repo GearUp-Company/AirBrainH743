@@ -4,7 +4,7 @@ This GitHub repository serves as a backup and documentation hub for the AirBrain
 All official information and product details are available on our website: [Airbrain Product page](https://takeyourgear.com/pages/products/airbrain)
 <p align="center">
 
-![AirBrain_Front](/datasheet/AirBrain_front.png)
+    ![AirBrain_Front](/datasheet/AirBrain_front.png)
 
 </p>
 
@@ -46,6 +46,8 @@ info@takeyourgear.com
 [Website Gear Up](https://takeyourgear.com/)
 
 <p align="center">
+
 ![AirBrain Logo](datasheet/Gearup.png#gh-light-mode-only)
 ![AirBrain Logo](datasheet/Gearup_White.png#gh-dark-mode-only)
+
 </p>
