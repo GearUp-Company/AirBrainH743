@@ -1,29 +1,51 @@
 # AirBrainH743
-This github repo aiss a backup and guide for AirbrainH743 flightcontroller.
+This GitHub repository serves as a backup and documentation hub for the AirBrain H743 flight controller.
 
-All information can be found on our website: [Website Airbrain](https://takeyourgear.com/pages/products/airbrain)
+All official information and product details are available on our website: [Airbrain Product page](https://takeyourgear.com/pages/products/airbrain)
+<p align="center">
 
-![AirBrain_Pinout_top](/datasheet/AirBrain_front.png)
+![AirBrain_Front](/datasheet/AirBrain_front.png)
 
-## Pinout
+</p>
 
-Datasheet folder in this repo contains the datasheet and pinout of AirBrain flight controller.
+## Overview
+The AirBrainH743 is now officially supported by both Betaflight and ArduPilot, with the target added to their main branches.
+This repository exists to provide a secondary reference location — hosting documentation, pinout diagrams, and firmware resources — to ensure the information remains easily accessible.
+
+## Pinout & Datasheet
+
+The /datasheet folder contains the official datasheet and pinout diagrams for the AirBrain flight controller.
+
+<p align="center">
 
 ![AirBrain_Pinout_top](/datasheet/AirBrain_pinoutTop.png)
 ![AirBrain_Pinout_bottom](/datasheet/AirBrain_pinoutBottom.png)
 
+</p>
+
 ## Firmware
 
-Firmware folder in this repo contains the backup firmware for AirBrain flight controller.
-Please always use the AirBrain Firmware provided by Betaflght or Ardupilot community.
-This repo is only for documentation purpose.
+The /firmware folder contains backup binaries and source files related to the AirBrain target.
 
-Inside the firmware folder there is a sourcecode folder containing the source files for target creation.
-The bin folder contains a binary for the AirBrain that can be flashed.
+Please always use the official AirBrain firmware provided by the Betaflight or ArduPilot communities.
 
-## Datasheet
+This repository is only for documentation and archival purposes.
 
-Datasheet folder in this repo contains the datasheet and pinout of AirBrain flight controller.
+Inside the firmware folder:
 
-For more information: info@takeyourgear.com
+src/ – source files used for target creation
+
+bin/ – precompiled binary files that can be flashed to the AirBrain
+
+## Contact & More Info
+
+For additional details or support:
+
+info@takeyourgear.com
+
 [Website Gear Up](https://takeyourgear.com/)
+
+<p align="center">
+![AirBrain Logo](datasheet/Gearup.png#gh-light-mode-only)
+![AirBrain Logo](datasheet/Gearup_White.png#gh-dark-mode-only)
+</p>
