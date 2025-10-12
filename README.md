@@ -1,4 +1,11 @@
-# AirBrainH743
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="datasheet/Gearup_White.png">
+    <source media="(prefers-color-scheme: light)" srcset="datasheet/Gearup.png">
+    <img alt="GearUp Logo" src="datasheet/Gearup.png" width="32" height="32" style="vertical-align: middle; margin-right: 8px;">
+  </picture>
+  AirBrainH743
+</h1>
 
 This GitHub repository serves as a backup and documentation hub for the AirBrain H743 flight controller.
 
@@ -41,15 +48,16 @@ bin/ – precompiled binary files that can be flashed to the AirBrain
 
 ## Contact & More Info
 
+<div align="center">
+
 For additional details or support:
 
 <info@takeyourgear.com>
 
-<div align="center">
-
 ![AirBrain Logo](datasheet/Gearup.png#gh-light-mode-only)
 ![AirBrain Logo](datasheet/Gearup_White.png#gh-dark-mode-only)
 
+[Website Gear Up](https://takeyourgear.com/)
+
 </div>
 
-[Website Gear Up](https://takeyourgear.com/)
