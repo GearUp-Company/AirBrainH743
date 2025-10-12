@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="datasheet/Gearup_White.png">
     <source media="(prefers-color-scheme: light)" srcset="datasheet/Gearup.png">
-    <img alt="GearUp Logo" src="datasheet/Gearup.png" width="150" style="vertical-align: middle; margin-right: 8px;">
+    <img alt="GearUp Logo" src="datasheet/Gearup.png" width="120" style="vertical-align: middle; margin-right: 8px;">
   </picture>
   AirBrainH743
 </h1>
