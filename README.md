@@ -46,6 +46,12 @@ src/ – source files used for target creation
 
 bin/ – precompiled binary files that can be flashed to the AirBrain
 
+
+## 3D files
+
+The /3D folder contains step files for an optional mounting bracket to go from 30x30 to 20x20mm.
+
+
 ## Contact & More Info
 
 <div align="center">
