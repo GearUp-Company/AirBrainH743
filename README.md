@@ -21,8 +21,9 @@ All official information and product details are available on our website: [Airb
 The AirBrainH743 is now officially supported by both Betaflight and ArduPilot, with the target added to their main branches. We also have firmware targets available for PX4 and INAV.
 This repository exists to provide a secondary reference location — hosting documentation, pinout diagrams, and firmware resources — to ensure the information remains easily accessible.
 
-For the latest Ardupilot: https://firmware.ardupilot.org/Copter/latest/AIRBRAINH743/
-For the latest Betaflight, click the dropdown list inside Betaflight configurator and select: AIRBRAINH743
+  For the latest Ardupilot: https://firmware.ardupilot.org/Copter/latest/AIRBRAINH743/
+
+  For the latest Betaflight, click the dropdown list inside Betaflight configurator and select: AIRBRAINH743
 
 
 ## Pinout & Datasheet
