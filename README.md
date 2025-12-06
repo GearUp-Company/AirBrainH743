@@ -18,8 +18,12 @@ All official information and product details are available on our website: [Airb
 
 ## Overview
 
-The AirBrainH743 is now officially supported by both Betaflight and ArduPilot, with the target added to their main branches.
+The AirBrainH743 is now officially supported by both Betaflight and ArduPilot, with the target added to their main branches. We also have firmware targets available for PX4 and INAV.
 This repository exists to provide a secondary reference location — hosting documentation, pinout diagrams, and firmware resources — to ensure the information remains easily accessible.
+
+For the latest Ardupilot: https://firmware.ardupilot.org/Copter/latest/AIRBRAINH743/
+For the latest Betaflight, click the dropdown list inside Betaflight configurator and select: AIRBRAINH743
+
 
 ## Pinout & Datasheet
 
@@ -45,6 +49,44 @@ Inside the firmware folder:
 src/ – source files used for target creation
 
 bin/ – precompiled binary files that can be flashed to the AirBrain
+
+
+### PX4
+
+#### Make PX4 bootloader
+
+´´´cli
+make gearup_airbrainh743_bootloader
+´´´
+
+#### Flash PX4 bootloader 
+
+´´´cli
+dfu-util -a 0 -s 0x08000000:leave   -D boards/gearup/airbrainh743/extras/gearup_airbrainh743_bootloader.bin
+´´´
+
+#### Make PX4 FW
+
+´´´cli
+make gearup_airbrainh743_default
+´´´
+
+#### Flash PX4 FW
+
+´´´cli
+dfu-util -a 0 -s 0x08020000:leave \
+  -D build/gearup_airbrainh743_default/gearup_airbrainh743_default.bin
+´´´
+
+#### Tip
+
+´´´cli
+make clean
+´´´
+
+#### Missing feature in PX4
+
+Support for NAND flash => https://github.com/PX4/PX4-Autopilot/issues/22490
 
 
 ## 3D files
