@@ -86,7 +86,6 @@ make clean
 
 #### Missing feature in PX4
 
-Support for NAND flash => https://github.com/PX4/PX4-Autopilot/issues/22490
 Support for NAND flash ⇒ PX4/PX4-Autopilot#22490
 
 
