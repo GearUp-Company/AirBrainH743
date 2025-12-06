@@ -55,34 +55,34 @@ bin/ – precompiled binary files that can be flashed to the AirBrain
 
 #### Make PX4 bootloader
 
-´´´cli
+```cli
 make gearup_airbrainh743_bootloader
-´´´
+```
 
 #### Flash PX4 bootloader 
 
-´´´cli
+```cli
 dfu-util -a 0 -s 0x08000000:leave   -D boards/gearup/airbrainh743/extras/gearup_airbrainh743_bootloader.bin
-´´´
+```
 
 #### Make PX4 FW
 
-´´´cli
+```cli
 make gearup_airbrainh743_default
-´´´
+```
 
 #### Flash PX4 FW
 
-´´´cli
+```cli
 dfu-util -a 0 -s 0x08020000:leave \
   -D build/gearup_airbrainh743_default/gearup_airbrainh743_default.bin
-´´´
+```
 
 #### Tip
 
-´´´cli
+```cli
 make clean
-´´´
+```
 
 #### Missing feature in PX4
 
