@@ -39,7 +39,7 @@ The /datasheet folder contains the official datasheet and pinout diagrams for th
 
 ## Firmware
 
-The /firmware folder contains backup binaries and source files related to the AirBrain target.
+The '/firmware' folder contains backup binaries and source files related to the AirBrain target.
 
 Please always use the official AirBrain firmware provided by the Betaflight or ArduPilot communities.
 
@@ -47,12 +47,17 @@ This repository is only for documentation and archival purposes.
 
 Inside the firmware folder:
 
-src/ – source files used for target creation
+'/sourcecode' – Gear Up source files used for target creation
 
-bin/ – precompiled binary files that can be flashed to the AirBrain
+'/bin' – precompiled binary files that can be flashed to the AirBrain
 
 
 ### PX4
+
+These instructions are only for when you would like to build PX4 AirBrainH743 target yourself. If you would just like to install PX4 on the board, please see the '/firmware/PX4/bin' folder that contains PX4 firmware files for the AirBrainH743.
+
+Following instructions expect you have a working PX4 development environment. Copy the contents of '/firmware/PX4/sourcecode' inside your PX4 environment under 'gearup/airbrainh743'.
+
 
 #### Make PX4 bootloader
 
@@ -89,6 +94,7 @@ make clean
 
 Support for NAND flash ⇒ PX4/PX4-Autopilot#22490
 
+=> WIP
 
 ## 3D files
 
