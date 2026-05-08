@@ -2,8 +2,6 @@
 
 ## Production and availability
 
-GearUp does **not** make a fixed public availability commitment for the AirBrain H743. Production runs are scheduled based on rolling demand and component supply from authorised distributors. Stock is maintained and replenished as long as both signals support it.
-
 For **multi-year procurement programmes**, defence or institutional contracts requiring assured supply, please contact us directly. We can discuss private letter-of-supply, MOQ-backed reservations, and component-buffer arrangements on a case-by-case basis.
 
 ## End-of-life notice
