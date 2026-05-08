@@ -9,7 +9,7 @@
 
 GearUp **AirBrain H743** flight controller. STM32H743VIH6 (480 MHz Cortex-M7), 36 × 31 × 10 mm, 8 g. Designed and made in Belgium.
 
-This repository hosts the datasheet, pinouts, mechanical resources, and integration guides for the board. **Schematics and full bill of materials are not published here.** Source-of-truth for the product is the [Airbrain product page](https://takeyourgear.com/pages/products/airbrain).
+This repository hosts the datasheet, pinouts, mechanical resources, and integration guides for the board. Source-of-truth for the product is the [Airbrain product page](https://takeyourgear.com/pages/products/airbrain).
 
 <div align="center">
 
@@ -29,7 +29,7 @@ The AirBrain H743 is **officially supported upstream** by Betaflight, ArduPilot,
 
 Boards ship pre-flashed with **Betaflight**.
 
-INAV is in beta. Targets are present in this repo's `firmware/INAV/` folder for testing but are not advertised as production-supported.
+INAV is in beta. Targets are present in this repo's `firmware/INAV/` folder for testing.
 
 ## Pinout & Datasheet
 
@@ -197,7 +197,7 @@ Additional printable mounts, brackets, and housings are published on our **[Make
 
 ## License
 
-See [`LICENSE.md`](LICENSE.md). Hardware design files (schematics, PCB layout, full BOM) are **not** published in this repository.
+See [`LICENSE.md`](LICENSE.md).
 
 ## Contact
 
