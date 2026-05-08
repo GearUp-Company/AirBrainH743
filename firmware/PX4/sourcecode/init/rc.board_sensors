@@ -1,28 +1,16 @@
 #!/bin/sh
 #
-# board specific sensors init
+# AirBrainH743 specific board sensors init
 #------------------------------------------------------------------------------
 
 board_adc start
 
-# Internal SPI IMU: ICM42688P on SPI1
-# -s    : internal sensor
-# -b 1  : SPI bus 1 (see spi.cpp / px4_spi_buses)
-# -R 2  : rotation (adjust to match your board orientation)
-icm42688p -s -b 1 -R 2 start
+# Internal SPI bus IMU - ICM42688P (Invensensev3)
+icm42688p -R 2 -b 1 -s start
 
-# Internal barometer: DPS310 on I2C1, addr 0x77
-# -X         : internal (non-external) baro
-# -a 0x77    : I2C address (change if your hardware is 0x76)
-# -b 1       : I2C bus 1 (matches i2c.cpp)
-dps310 -X -a 0x76 -b 1 start
+# Internal I2C bus barometer - DPS310 @ 0x76 (118 decimal)
+dps310 -I -a 118 start
 
-# Internal magnetometer: LIS2MDL on I2C1, addr 0x1e
-# -X      : internal mag
-# -a 0x1e : I2C address
-# -b 1    : I2C bus 1
-lis2mdl -X -a 0x1e -b 1 start
-#!/bin/sh
-#
-# board specific sensors init
-#------------------------------------------------------------------------------
+# Internal I2C bus magnetometer - LIS2MDL @ 0x1E (30 decimal)
+# Using iis2mdc driver (functionally equivalent to LIS2MDL)
+iis2mdc -I -R 2 -a 30 start

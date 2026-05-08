@@ -1,24 +1,21 @@
 #!/bin/sh
 #
-# board specific defaults
+# AirBrainH743 board specific defaults
 #------------------------------------------------------------------------------
-param set-default BAT1_A_PER_V 17
-param set-default BAT1_N_CELLS 4
-param set-default BAT1_V_CHARGED 4.2
-param set-default BAT1_V_DIV 10.1
-param set-default BAT1_V_EMPTY 3.2
 
-param set-default SYS_HAS_MAG 1
-param set-default PWM_MAIN_TIM0 -4
-param set-default RC_INPUT_PROTO -1
+# Battery voltage divider and current scale
+param set-default BAT1_V_DIV 15.0
+param set-default BAT1_A_PER_V 101.0
+
+# system_power unavailable
+param set-default CBRK_SUPPLY_CHK 894281
 
 param set-default IMU_GYRO_RATEMAX 2000
-param set-default SYS_AUTOSTART 4001
-param set-default MC_PITCHRATE_K 0.4
-param set-default MC_ROLLRATE_K 0.35
-param set-default MC_YAWRATE_K 1.2
-param set-default MC_YAWRATE_MAX 360
-param set-default MAV_TYPE 2
-param set-default CA_AIRFRAME 0
-param set-default CA_ROTOR_COUNT 4
-param set-default CBRK_SUPPLY_CHK 894281
+
+# W25N NAND flash with littlefs (128 MB): small log file size so we can keep
+# a few recent logs, and fill up to 95%.
+param set-default SDLOG_ROTATE 95
+param set-default SDLOG_MAX_SIZE 40
+
+# Store missions in RAM
+param set-default SYS_DM_BACKEND 1

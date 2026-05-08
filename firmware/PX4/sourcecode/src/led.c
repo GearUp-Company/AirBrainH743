@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (c) 2021 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2026 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -31,12 +31,6 @@
  *
  ****************************************************************************/
 
-/**
- * @file led.c
- *
- * LED backend.
- */
-
 #include <px4_platform_common/px4_config.h>
 
 #include <stdbool.h>
@@ -48,13 +42,6 @@
 #include <nuttx/board.h>
 #include <arch/board/board.h>
 
-/*
- * Ideally we'd be able to get these from arm_internal.h,
- * but since we want to be able to disable the NuttX use
- * of leds for system indication at will and there is no
- * separate switch, we need to build independent of the
- * CONFIG_ARCH_LEDS configuration switch.
- */
 __BEGIN_DECLS
 extern void led_init(void);
 extern void led_on(int led);
@@ -62,16 +49,29 @@ extern void led_off(int led);
 extern void led_toggle(int led);
 __END_DECLS
 
-#  define xlat(p) (p)
+#ifdef CONFIG_ARCH_LEDS
+static bool nuttx_owns_leds = true;
+static const uint8_t xlatpx4[] = {1, 2, 4, 0};
+#  define xlat(p) xlatpx4[(p)]
 static uint32_t g_ledmap[] = {
+	GPIO_nLED_RED,     // Indexed by BOARD_LED_RED
 	GPIO_nLED_GREEN,   // Indexed by BOARD_LED_GREEN
 	GPIO_nLED_BLUE,    // Indexed by BOARD_LED_BLUE
-	GPIO_nLED_RED,     // Indexed by BOARD_LED_RED
 };
+
+#else
+
+#  define xlat(p) (p)
+static uint32_t g_ledmap[] = {
+	GPIO_nLED_RED,     // LED_RED
+	GPIO_nLED_GREEN,   // LED_GREEN
+	GPIO_nLED_BLUE,    // LED_BLUE
+};
+
+#endif
 
 __EXPORT void led_init(void)
 {
-	/* Configure LED GPIOs for output */
 	for (size_t l = 0; l < (sizeof(g_ledmap) / sizeof(g_ledmap[0])); l++) {
 		if (g_ledmap[l] != 0) {
 			stm32_configgpio(g_ledmap[l]);
@@ -81,8 +81,8 @@ __EXPORT void led_init(void)
 
 static void phy_set_led(int led, bool state)
 {
-	/* Drive Low to switch on */
-	if (g_ledmap[led] != 0) {
+	/* Drive Low to switch on (active low LEDs) */
+	if (led < (int)(sizeof(g_ledmap) / sizeof(g_ledmap[0])) && g_ledmap[led] != 0) {
 		stm32_gpiowrite(g_ledmap[led], !state);
 	}
 }
@@ -90,7 +90,7 @@ static void phy_set_led(int led, bool state)
 static bool phy_get_led(int led)
 {
 	/* If Low it is on */
-	if (g_ledmap[led] != 0) {
+	if (led < (int)(sizeof(g_ledmap) / sizeof(g_ledmap[0])) && g_ledmap[led] != 0) {
 		return !stm32_gpioread(g_ledmap[led]);
 	}
 
@@ -111,3 +111,95 @@ __EXPORT void led_toggle(int led)
 {
 	phy_set_led(xlat(led), !phy_get_led(xlat(led)));
 }
+
+#ifdef CONFIG_ARCH_LEDS
+/****************************************************************************
+ * Public Functions
+ ****************************************************************************/
+
+void board_autoled_initialize(void)
+{
+	led_init();
+}
+
+void board_autoled_on(int led)
+{
+	if (!nuttx_owns_leds) {
+		return;
+	}
+
+	switch (led) {
+	default:
+		break;
+
+	case LED_HEAPALLOCATE:
+		phy_set_led(BOARD_LED_BLUE, true);
+		break;
+
+	case LED_IRQSENABLED:
+		phy_set_led(BOARD_LED_BLUE, false);
+		phy_set_led(BOARD_LED_GREEN, true);
+		break;
+
+	case LED_STACKCREATED:
+		phy_set_led(BOARD_LED_GREEN, true);
+		phy_set_led(BOARD_LED_BLUE, true);
+		break;
+
+	case LED_INIRQ:
+		phy_set_led(BOARD_LED_BLUE, true);
+		break;
+
+	case LED_SIGNAL:
+		phy_set_led(BOARD_LED_GREEN, true);
+		break;
+
+	case LED_ASSERTION:
+		phy_set_led(BOARD_LED_RED, true);
+		phy_set_led(BOARD_LED_BLUE, true);
+		break;
+
+	case LED_PANIC:
+		phy_set_led(BOARD_LED_RED, true);
+		break;
+
+	case LED_IDLE:
+		phy_set_led(BOARD_LED_RED, true);
+		break;
+	}
+}
+
+void board_autoled_off(int led)
+{
+	if (!nuttx_owns_leds) {
+		return;
+	}
+
+	switch (led) {
+	default:
+		break;
+
+	case LED_SIGNAL:
+		phy_set_led(BOARD_LED_GREEN, false);
+		break;
+
+	case LED_INIRQ:
+		phy_set_led(BOARD_LED_BLUE, false);
+		break;
+
+	case LED_ASSERTION:
+		phy_set_led(BOARD_LED_RED, false);
+		phy_set_led(BOARD_LED_BLUE, false);
+		break;
+
+	case LED_PANIC:
+		phy_set_led(BOARD_LED_RED, false);
+		break;
+
+	case LED_IDLE:
+		phy_set_led(BOARD_LED_RED, false);
+		break;
+	}
+}
+
+#endif /* CONFIG_ARCH_LEDS */

@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (C) 2021 PX4 Development Team. All rights reserved.
+ *   Copyright (C) 2026 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -33,7 +33,15 @@
 
 #include <px4_arch/i2c_hw_description.h>
 
+/*
+ * I2C bus configuration for AirBrainH743
+ *
+ * I2C1: Internal bus - PB6 (SCL), PB7 (SDA)
+ *       Devices: DPS310 baro @ 0x76, LIS2MDL compass @ 0x1E
+ * I2C4: External bus - PD12 (SCL), PD13 (SDA)
+ */
+
 constexpr px4_i2c_bus_t px4_i2c_buses[I2C_BUS_MAX_BUS_ITEMS] = {
-	initI2CBusExternal(1),
+	initI2CBusInternal(1),
 	initI2CBusExternal(4),
 };

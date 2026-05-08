@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (C) 2021 PX4 Development Team. All rights reserved.
+ *   Copyright (C) 2026 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -35,22 +35,23 @@
 #include <drivers/drv_sensor.h>
 #include <nuttx/spi/spi.h>
 
+/*
+ * SPI bus configuration for AirBrainH743
+ *
+ * SPI1: IMU (Invensensev3/ICM42688P) - PA5 SCK, PA6 MISO, PA7 MOSI, PA3 CS
+ * SPI2: W25N Flash - PD3 SCK, PB14 MISO, PC3 MOSI, PD4 CS
+ * SPI4: External/AUX - PE12 SCK, PE5 MISO, PE6 MOSI
+ */
+
 constexpr px4_spi_bus_t px4_spi_buses[SPI_BUS_MAX_BUS_ITEMS] = {
 	initSPIBus(SPI::Bus::SPI1, {
-		// ICM42688P on SPI1, CS = PA3, DRDY = PC6
-		initSPIDevice(DRV_IMU_DEVTYPE_ICM42688P,
-		              SPI::CS{GPIO::PortA, GPIO::Pin3},
-		              SPI::DRDY{GPIO::PortC, GPIO::Pin6}),
+		initSPIDevice(DRV_IMU_DEVTYPE_ICM42688P, SPI::CS{GPIO::PortA, GPIO::Pin3}),
 	}),
 	initSPIBus(SPI::Bus::SPI2, {
-		// on-board flash
-		initSPIDevice(SPIDEV_FLASH(0), SPI::CS{GPIO::PortD, GPIO::Pin4}),
+		initSPIDevice(SPIDEV_FLASH(0), SPI::CS{GPIO::PortD, GPIO::Pin4}),  // W25N Flash
 	}),
-	initSPIBus(SPI::Bus::SPI3, {
-		// not in use (for now)
-	}),
-	initSPIBus(SPI::Bus::SPI4, {
-		// no second IMU on AirBrain, leave empty for now
+	initSPIBusExternal(SPI::Bus::SPI4, {
+		initSPIConfigExternal(SPI::CS{GPIO::PortB, GPIO::Pin3}), // User 1 GPIO as chip select
 	}),
 };
 
