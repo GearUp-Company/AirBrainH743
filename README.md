@@ -117,17 +117,33 @@ dfu-util -a 0 -s 0x08000000:leave \
 
 #### Step 2: Flash the PX4 firmware
 
-After flashing the bootloader, the board reboots and enumerates as a PX4 device.
+After flashing the bootloader, the board reboots and enumerates as a PX4 device. Two routes work, pick whichever fits your setup.
 
-1. Download the **latest PX4 firmware**: [gearup_airbrainh743_default.px4](https://px4-travis.s3.amazonaws.com/Firmware/master/gearup_airbrainh743_default.px4).
-   This is the official PX4 CI build, automatically rebuilt from PX4's `master` branch.
-2. Open **QGroundControl**.
+##### Option A: QGC Daily, Developer Build (recommended until PX4 v1.18 stable)
+
+The AirBrain H743 target is on PX4 main branch but not yet in PX4 stable (v1.17). Until v1.18 lands, the cleanest route is QGC Daily, which auto-downloads the latest build from main.
+
+1. Download QGC Daily from [docs.qgroundcontrol.com/Stable_V5.0/en/qgc-user-guide/releases/daily_builds.html](https://docs.qgroundcontrol.com/Stable_V5.0/en/qgc-user-guide/releases/daily_builds.html).
+2. Open QGC Daily, go to **Vehicle Configuration, Firmware**, pick the USB port, click **Flash**.
+3. Unplug and replug the USB cable when prompted.
+4. Select **Advanced Settings**, choose **Developer Build (master)**.
+5. QGC pulls the latest .px4 from PX4 main and flashes it.
+
+After PX4 v1.18 stable releases (expected later in 2026), QGC Stable will pick the AirBrain target automatically. We will update this section then.
+
+##### Option B: Manual download
+
+For air-gapped systems or when you want a specific build pinned.
+
+1. Download the latest PX4 firmware: [gearup_airbrainh743_default.px4](https://px4-travis.s3.amazonaws.com/Firmware/master/gearup_airbrainh743_default.px4). This is the official PX4 CI build, automatically rebuilt from PX4 main branch.
+2. Open QGroundControl.
 3. Connect the AirBrain via USB.
-4. Use **Vehicle Setup, Firmware** and follow the prompts to load custom firmware.
-5. Select the `.px4` file you downloaded.
+4. Use **Vehicle Setup, Firmware**, click **Advanced Settings**, choose **Custom firmware file**.
+5. Select the .px4 file you downloaded.
 6. Wait for the flash to complete.
 
-> **Migrating from a pre-PR-27227 PX4 build?** The NAND filesystem layout changed. See [`firmware/PX4/UPGRADING.md`](firmware/PX4/UPGRADING.md) for the one-line `mklittlefs` reformat command.
+> **Internal magnetometer note.** The LIS2MDL chip is detected by PX4 iis2mdc driver out of the box. PX4 dmesg should show iis2mdc #0 on I2C bus 1 address 0x1E rotation 2. No board-config change required. Verified 2026-06-16 with PX4 contributor Julian Oes.
+
 
 ---
 
