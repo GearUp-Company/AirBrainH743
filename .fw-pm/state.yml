@@ -1,5 +1,5 @@
 current_target: ardupilot
 current_workstream: timer-group-crash-investigation
-phase: research
+phase: awaiting-data (contention hypothesis refuted by maintainer 26/08)
 last_action: 2026-08-26 hwdef timer/DMA mapping verified in local ardupilot clone (master 1ea89b0); upstream sweep agent launched
 blocked_on: customer crash logs + param file (requested by mail 2026-08-26) + Andy reply (DM 2026-08-26)
