@@ -1,0 +1,29 @@
+project: AirBrainH743
+display_name: AirBrain H743
+board_repo: /home/a/PCB/AirBrainH743
+linked_pcb_pm: /home/a/PCB/AirBrainH743/.pcb-pm
+board_class: flight-controller
+note_machine: repo laptop-only (in-flight exception; desktop has AirBrain2 only)
+
+contacts:
+  - "ArduPilot dev team (Andy Piper / andypiper: DShot + RCOutput maintainer)"
+
+targets:
+  - target: ardupilot
+    status: shipped (AIRBRAINH743 upstream, ArduCopter 4.7.0 in field use)
+    workstreams:
+      - id: timer-group-crash-investigation
+        opened: 2026-08-26
+        status: open, blocked on customer crash logs
+        summary: >-
+          Field customer (octocopter, 4.7.0): two in-flight incidents, once
+          motors 5-6 (TIM3), once motors 7-8 (TIM2), never 1-4 (TIM1).
+          Customer hypothesis: timer-group-specific software failure.
+        facts_verified:
+          - "hwdef: M1-4=TIM1 CH1-4, M5-6=TIM3 CH3/4, M7-8=TIM2 CH3/4, M9=TIM5_CH3"
+          - "BIDIR on M1,M3,M5,M7; DMA_NOSHARE+PRIORITY on TIM1_UP TIM3_UP TIM2_UP SPI1*"
+        next:
+          - upstream issue sweep (agent running 2026-08-26)
+          - obtain 2 crash dataflash logs + .param from customer
+          - RCOU analysis commanded-vs-actual once logs arrive
+          - dev-check question to ArduPilot (Discord/forum) with concrete facts, customer anonymized
