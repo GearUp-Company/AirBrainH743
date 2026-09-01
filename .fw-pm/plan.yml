@@ -27,3 +27,38 @@ targets:
           - obtain 2 crash dataflash logs + .param from customer
           - RCOU analysis commanded-vs-actual once logs arrive
           - dev-check question to ArduPilot (Discord/forum) with concrete facts, customer anonymized
+
+  - target: px4
+    status: shipped (gearup_airbrainh743 upstream; no stable release carries it yet, 1.18 line only)
+    workstreams:
+      - id: mission-persistence-dataman
+        opened: 2026-09-01
+        status: open, root cause identified, needs bench verification
+        summary: >-
+          Customer (LuxUAV, PX4 1.18.0 build 80, git e8ea98b, built 2026-08-18)
+          reports uploaded missions are lost after a full power cycle. Mission
+          uploads and executes correctly (Mission -> RTL -> auto land flown);
+          after battery disconnect and reboot the mission is gone. NAND/littlefs
+          is healthy: .ulg logging writes fine.
+        root_cause_verified:
+          - "boards/gearup/airbrainh743/init/rc.board_defaults sets: param set-default SYS_DM_BACKEND 1"
+          - "SYS_DM_BACKEND enum (src/modules/dataman/parameters.yaml): -1 disabled, 0 default/file-on-persistent-storage, 1 RAM. PX4 default is 0."
+          - "DATAMAN_PERSISTENT_STORAGE (src/modules/dataman/Kconfig) defaults to y; airbrainh743 does not disable it, so persistent storage IS available."
+          - "Introduced by commit 2df92cc (Julian Oes, 2026-04-22) inside a logger-tuning commit, stated reason 'no SD on this board'. The board has no SD but does have littlefs on W25N NAND."
+        assessment: >-
+          Defect in our board default, not a PX4 bug and not customer error.
+          Affects every AirBrain PX4 user running missions. Not billable work.
+        next:
+          - "ask Julian Oes why RAM was chosen before changing his default upstream (may be a NAND write-pattern or wear reason not stated in the commit)"
+          - "bench: set SYS_DM_BACKEND 0, reboot, upload mission, full power cycle, confirm persistence AND that logging still works"
+          - "if clean: one-line board-default change + upstream PR under the phase_9 gate (build-verify, read CONTRIBUTING at source, strip internal provenance)"
+          - "customer workaround meanwhile: set SYS_DM_BACKEND 0 in QGC and reboot (UNVERIFIED on our bench, must be flagged as such)"
+      - id: reported-limitations-2026-09-01
+        opened: 2026-09-01
+        status: open, triage only
+        summary: >-
+          Same customer flagged, non-blocking: DShot spin-direction reverse/save
+          and esc_info absent from the shell on both main and 1.18 beta; AM32
+          EEPROM over bidirectional DShot (DSHOT_BIDIR_EDT) does not identify the
+          ESC (stays Unknown); the v1.17.0 option QGC offers for this board 404s
+          on the server.

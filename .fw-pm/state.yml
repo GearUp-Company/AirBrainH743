@@ -1,5 +1,5 @@
-current_target: ardupilot
-current_workstream: timer-group-crash-investigation
-phase: awaiting-data (contention hypothesis refuted by maintainer 26/08)
-last_action: 2026-08-26 hwdef timer/DMA mapping verified in local ardupilot clone (master 1ea89b0); upstream sweep agent launched
-blocked_on: customer crash logs + param file (requested by mail 2026-08-26) + Andy reply (DM 2026-08-26)
+current_target: px4
+current_workstream: mission-persistence-dataman (ardupilot timer-crash still open, blocked on customer logs)
+phase: root-cause-identified, needs bench verification
+last_action: 2026-09-01 SYS_DM_BACKEND=1 (RAM) identified in rc.board_defaults as root cause of mission loss; enum + KConfig verified at source
+blocked_on: bench verification of SYS_DM_BACKEND=0 + reason-check with Julian Oes before upstream change
