@@ -2,4 +2,4 @@ current_target: px4
 current_workstream: mission-persistence-dataman (ardupilot timer-crash still open, blocked on customer logs)
 phase: root-cause-identified, needs bench verification
 last_action: 2026-09-01 SYS_DM_BACKEND=1 (RAM) identified in rc.board_defaults as root cause of mission loss; enum + KConfig verified at source
-blocked_on: bench verification of SYS_DM_BACKEND=0 + reason-check with Julian Oes before upstream change
+blocked_on: bench verification of SYS_DM_BACKEND=0; reason-check sent to Julian Oes on Discord 2026-09-01 14:20, awaiting reply
